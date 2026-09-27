@@ -1,0 +1,6 @@
+{
+  "name": "DIGILEX - Cyber Risk Intelligence & Financial Optimization",
+  "description": "AI-powered cybersecurity risk quantification and investment optimization platform. Quantifying Cyber Risk. Optimizing Every Rupee.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
