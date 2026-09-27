@@ -178,19 +178,19 @@ export const VulnerabilitiesPage: React.FC<VulnerabilitiesPageProps> = ({
       {/* Vulnerabilities Table */}
       <div className="bg-[#111827]/90 border border-slate-800/80 rounded-2xl p-5 shadow-xl">
         <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
+          <table className="w-full text-left border-collapse align-middle">
             <thead>
               <tr className="border-b border-slate-800 text-[11px] font-mono uppercase text-slate-400">
-                <th className="py-2.5 px-3">CVE ID</th>
-                <th className="py-2.5 px-3">Asset Target</th>
-                <th className="py-2.5 px-3">CVSS</th>
-                <th className="py-2.5 px-3">Exploit Status</th>
-                <th className="py-2.5 px-3">Known Exploited</th>
-                <th className="py-2.5 px-3">Patch</th>
-                <th className="py-2.5 px-3 text-right">EAL (INR)</th>
-                <th className="py-2.5 px-3 text-right">Cost</th>
-                <th className="py-2.5 px-3 text-center">ROSI</th>
-                <th className="py-2.5 px-3 text-right">Action</th>
+                <th className="py-3 px-3.5 align-middle whitespace-nowrap">CVE ID</th>
+                <th className="py-3 px-3.5 align-middle">Asset & Vulnerability Target</th>
+                <th className="py-3 px-3.5 align-middle text-center whitespace-nowrap">CVSS</th>
+                <th className="py-3 px-3.5 align-middle whitespace-nowrap">Exploitability</th>
+                <th className="py-3 px-3.5 align-middle text-center whitespace-nowrap">Known Threat</th>
+                <th className="py-3 px-3.5 align-middle text-center whitespace-nowrap">Patch Status</th>
+                <th className="py-3 px-3.5 align-middle text-right whitespace-nowrap">EAL (INR)</th>
+                <th className="py-3 px-3.5 align-middle text-right whitespace-nowrap">Fix Cost</th>
+                <th className="py-3 px-3.5 align-middle text-center whitespace-nowrap">ROSI</th>
+                <th className="py-3 px-3.5 align-middle text-right whitespace-nowrap">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-800/60 text-xs">
@@ -200,18 +200,20 @@ export const VulnerabilitiesPage: React.FC<VulnerabilitiesPageProps> = ({
                   onClick={() => onSelectVulnerability(v)}
                   className="hover:bg-slate-800/40 transition-colors cursor-pointer group"
                 >
-                  <td className="py-3 px-3 font-mono font-bold text-cyan-400">
-                    <span className="bg-cyan-950/60 border border-cyan-800/50 px-2 py-0.5 rounded">
+                  <td className="py-3.5 px-3.5 align-middle whitespace-nowrap font-mono font-bold text-cyan-400">
+                    <span className="bg-cyan-950/60 border border-cyan-800/50 px-2 py-1 rounded inline-block text-[11px]">
                       {v.cveId}
                     </span>
                   </td>
-                  <td className="py-3 px-3">
-                    <p className="font-bold text-white">{v.assetName}</p>
-                    <p className="text-[10px] text-slate-400 line-clamp-1 font-sans">{v.title}</p>
+                  <td className="py-3.5 px-3.5 align-middle">
+                    <div className="flex flex-col min-w-[200px] justify-center">
+                      <p className="font-bold text-white text-xs leading-snug truncate">{v.assetName}</p>
+                      <p className="text-[11px] text-slate-400 font-sans leading-tight truncate mt-0.5">{v.title}</p>
+                    </div>
                   </td>
-                  <td className="py-3 px-3 font-mono">
+                  <td className="py-3.5 px-3.5 align-middle text-center whitespace-nowrap font-mono">
                     <span
-                      className={`px-2 py-0.5 rounded font-bold ${
+                      className={`px-2.5 py-1 rounded font-bold text-xs inline-block ${
                         v.cvss >= 9.0
                           ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30'
                           : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
@@ -220,43 +222,51 @@ export const VulnerabilitiesPage: React.FC<VulnerabilitiesPageProps> = ({
                       {v.cvss}
                     </span>
                   </td>
-                  <td className="py-3 px-3 font-mono text-[11px] text-slate-300">
-                    {v.exploitStatus}
+                  <td className="py-3.5 px-3.5 align-middle whitespace-nowrap font-mono text-[11px] text-slate-300">
+                    <span className="bg-slate-800/80 border border-slate-700/60 px-2 py-1 rounded">
+                      {v.exploitStatus}
+                    </span>
                   </td>
-                  <td className="py-3 px-3">
+                  <td className="py-3.5 px-3.5 align-middle text-center whitespace-nowrap">
                     {v.knownExploited ? (
-                      <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-500/20 text-rose-400 border border-rose-500/30 inline-flex items-center gap-1">
-                        <Flame className="w-3 h-3" /> YES
+                      <span className="px-2 py-1 rounded text-[10px] font-mono font-bold bg-rose-500/20 text-rose-400 border border-rose-500/30 inline-flex items-center gap-1 justify-center">
+                        <Flame className="w-3 h-3 text-rose-400" /> YES
                       </span>
                     ) : (
-                      <span className="text-slate-500 font-mono text-[10px]">NO</span>
+                      <span className="px-2 py-1 rounded text-[10px] font-mono text-slate-500 bg-slate-800/40 border border-slate-800 inline-block">
+                        NO
+                      </span>
                     )}
                   </td>
-                  <td className="py-3 px-3">
+                  <td className="py-3.5 px-3.5 align-middle text-center whitespace-nowrap">
                     {v.patchAvailable ? (
-                      <span className="text-emerald-400 font-mono text-[11px] inline-flex items-center gap-1">
-                        <CheckCircle className="w-3.5 h-3.5" /> Ready
+                      <span className="text-emerald-400 font-mono text-[11px] inline-flex items-center gap-1 justify-center bg-emerald-950/40 border border-emerald-800/40 px-2 py-1 rounded">
+                        <CheckCircle className="w-3 h-3 text-emerald-400" /> Ready
                       </span>
                     ) : (
-                      <span className="text-amber-400 font-mono text-[11px]">Mitigation Only</span>
+                      <span className="text-amber-400 font-mono text-[11px] bg-amber-950/40 border border-amber-800/40 px-2 py-1 rounded inline-block">
+                        Mitigation Only
+                      </span>
                     )}
                   </td>
-                  <td className="py-3 px-3 text-right font-mono font-extrabold text-rose-400 text-sm">
+                  <td className="py-3.5 px-3.5 align-middle text-right whitespace-nowrap font-mono font-extrabold text-rose-400 text-xs">
                     {formatINR(v.ealAmount)}
                   </td>
-                  <td className="py-3 px-3 text-right font-mono text-slate-300">
+                  <td className="py-3.5 px-3.5 align-middle text-right whitespace-nowrap font-mono text-slate-300 text-xs">
                     {formatINR(v.remediationCost)}
                   </td>
-                  <td className="py-3 px-3 text-center font-mono font-extrabold text-emerald-400">
-                    {v.rosiRatio}x
+                  <td className="py-3.5 px-3.5 align-middle text-center whitespace-nowrap font-mono font-extrabold text-emerald-400 text-xs">
+                    <span className="bg-emerald-950/50 border border-emerald-800/50 px-2 py-1 rounded inline-block">
+                      {v.rosiRatio}x
+                    </span>
                   </td>
-                  <td className="py-3 px-3 text-right">
+                  <td className="py-3.5 px-3.5 align-middle text-right whitespace-nowrap">
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
                         onSelectVulnerability(v);
                       }}
-                      className="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-blue-400 font-mono text-[11px] font-bold cursor-pointer inline-flex items-center gap-1"
+                      className="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-cyan-400 hover:text-cyan-300 border border-slate-700/80 font-mono text-[11px] font-bold cursor-pointer inline-flex items-center gap-1.5 transition-colors"
                     >
                       <span>Analyze</span>
                       <ExternalLink className="w-3 h-3" />
